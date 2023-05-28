@@ -43,16 +43,15 @@ pipeline {
 
 
                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                    // sh 'docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .'
-                    // sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                    // sh 'docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0'
+                    sh 'docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .'
+                    sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin"'
+                    sh 'docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0'
 
-                    sh '''
-                        docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .
-                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-                        docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0
-                    '''
-                
+                    // sh '''
+                    //     docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .
+                    //     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                    //     docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0
+                    // '''
                 }
             }
         }
