@@ -34,12 +34,18 @@ pipeline {
                 //         sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                 //      sh 'docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0-2.0'
                 // }
-                withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                     sh 'docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .'
-                    sh 'docker login -u $DOCKER_USERNAME --password-stdin'
-                    sh 'echo $DOCKER_PASSWORD | docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0-2.0'
-                }
 
+                // withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                //      sh 'docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .'
+                //     sh 'docker login -u $DOCKER_USERNAME --password-stdin'
+                //     sh 'echo $DOCKER_PASSWORD | docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0-2.0'
+                // }
+
+
+                withCredentials([usernamePassword(credentialsId: '75dfb4ed-7b1d-4d34-a0ff-c06422bbbf7b', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh 'docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .'
+                    sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                    sh 'docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0'
             }
         }
         stage("deploy") {
