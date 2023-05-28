@@ -49,7 +49,7 @@ pipeline {
 
                     sh '''
                         docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .
-                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdinzz
+                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
                         docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0
                     '''
                 
