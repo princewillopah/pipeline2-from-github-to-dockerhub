@@ -6,8 +6,8 @@ pipeline {
     } 
     environment {
         DOCKER_REGISTRY_CREDENTIALS = credentials('75dfb4ed-7b1d-4d34-a0ff-c06422bbbf7b')
-        DOCKER_USERNAME = DOCKER_REGISTRY_CREDENTIALS_USR
-        DOCKER_PASSWORD = DOCKER_REGISTRY_CREDENTIALS_PSW
+        DOCKER_USERNAME = "${DOCKER_REGISTRY_CREDENTIALS_USR}"
+        DOCKER_PASSWORD = "${DOCKER_REGISTRY_CREDENTIALS_PSW}"
     }
     stages {
         stage("build jar") {
