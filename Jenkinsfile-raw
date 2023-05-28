@@ -4,6 +4,11 @@ pipeline {
     tools {
 		maven "my-maven-3.9.2"
     } 
+    environment {
+        DOCKER_REGISTRY_CREDENTIALS = credentials('75dfb4ed-7b1d-4d34-a0ff-c06422bbbf7b')
+        DOCKER_USERNAME = DOCKER_REGISTRY_CREDENTIALS_USR
+        DOCKER_PASSWORD = DOCKER_REGISTRY_CREDENTIALS_PSW
+    }
     stages {
         stage("build jar") {
             steps {
@@ -25,11 +30,9 @@ pipeline {
                 // }
                 script {
                     echo "building the docker image..."
-                    withCredentials([usernamePassword(credentialsId: '75dfb4ed-7b1d-4d34-a0ff-c06422bbbf7b', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .'
-                        sh 'docker login -u $USER --password-stdin <<< $PASS'
-                        sh 'docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0-2.0'
-                    }
+                       sh 'docker build -t princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0 .'
+                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                     sh 'docker push princewillopah/pipeline2-from-github-to-dockerhub:jv-mvn-app-2.0-2.0'
                 }
 
             }
